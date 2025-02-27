@@ -1,0 +1,2 @@
+This is a chrome extension which takes the default CameraServer ui from wpilib and tidys it up with some extra settings and bits.
+To use with the 2025-Dashboard place the cameraExtension directory in the C:/ drive of your computer and the "launch camera" button in the setup tab will load the extension into a tab with the CameraServer site. Will say page not found if you arent connected to a robot.
