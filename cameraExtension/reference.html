@@ -1,0 +1,83 @@
+<html><head><title>serve_USB Camera 0 CameraServer</title><meta charset="UTF-8"><script>
+    function httpGetAsync(name, val)
+    {
+        var host = location.protocol + '//' + location.host + '/?action=command&' + name + '=' + val;
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.open("GET", host, true);
+        xmlHttp.send(null);
+    }
+    function updateInt(prop, name, val) {
+        document.querySelector(prop).value = val;
+        httpGetAsync(name, val);
+    }
+    function update(name, val) {
+        httpGetAsync(name, val);
+    }
+    </script>
+    <style>
+    table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
+    .settings { float: left; }
+    .stream { display: inline-block; margin-left: 10px; }
+    </style>
+    </head><body>
+    <div class="stream">
+    <img src="/stream.mjpg"><p>
+    <a href="/settings.json">Settings JSON</a> |
+    <a href="/config.json">Source Config JSON</a>
+    </p></div>
+    <div class="settings">
+    <p><label for="connect_verbose">connect_verbose</label>
+    <input type="range" min="0" max="1" value="1" id="connect_verbose" step="1" oninput="updateInt('#connect_verboseop', 'connect_verbose', value)">
+    <output for="connect_verbose" id="connect_verboseop">1</output>
+    </p><p><label for="brightness">brightness</label>
+    <input type="range" min="0" max="100" value="100" id="brightness" step="1" oninput="updateInt('#brightnessop', 'brightness', value)">
+    <output for="brightness" id="brightnessop">100</output>
+    </p><p><label for="contrast">contrast</label>
+    <input type="range" min="0" max="100" value="99" id="contrast" step="1" oninput="updateInt('#contrastop', 'contrast', value)">
+    <output for="contrast" id="contrastop">99</output>
+    </p><p><label for="saturation">saturation</label>
+    <input type="range" min="0" max="100" value="100" id="saturation" step="1" oninput="updateInt('#saturationop', 'saturation', value)">
+    <output for="saturation" id="saturationop">100</output>
+    </p><p><label for="hue">hue</label>
+    <input type="range" min="0" max="100" value="41" id="hue" step="1" oninput="updateInt('#hueop', 'hue', value)">
+    <output for="hue" id="hueop">41</output>
+    </p><p><label for="white_balance_temperature_auto">white_balance_temperature_auto</label>
+    <input id="white_balance_temperature_auto" type="checkbox" onclick="update('white_balance_temperature_auto', this.checked ? 1 : 0)" checked="">
+    </p><p><label for="gamma">gamma</label>
+    <input type="range" min="72" max="500" value="100" id="gamma" step="1" oninput="updateInt('#gammaop', 'gamma', value)">
+    <output for="gamma" id="gammaop">100</output>
+    </p><p><label for="gain">gain</label>
+    <input type="range" min="0" max="100" value="0" id="gain" step="1" oninput="updateInt('#gainop', 'gain', value)">
+    <output for="gain" id="gainop">0</output>
+    </p><p><label for="power_line_frequency">power_line_frequency</label>
+    <input id="power_line_frequency0" type="radio" name="power_line_frequency" value="Disabled" onclick="update('power_line_frequency', 0)"><label for="power_line_frequency0">Disabled</label>
+    <input id="power_line_frequency1" type="radio" name="power_line_frequency" value="50 Hz" onclick="update('power_line_frequency', 1)"><label for="power_line_frequency1">50 Hz</label>
+    <input id="power_line_frequency2" type="radio" name="power_line_frequency" value="60 Hz" onclick="update('power_line_frequency', 2)" checked=""><label for="power_line_frequency2">60 Hz</label>
+    </p><p><label for="white_balance_temperature">white_balance_temperature</label>
+    <input type="range" min="2800" max="6500" value="4600" id="white_balance_temperature" step="1" oninput="updateInt('#white_balance_temperatureop', 'white_balance_temperature', value)">
+    <output for="white_balance_temperature" id="white_balance_temperatureop">4600</output>
+    </p><p><label for="sharpness">sharpness</label>
+    <input type="range" min="0" max="100" value="12" id="sharpness" step="1" oninput="updateInt('#sharpnessop', 'sharpness', value)">
+    <output for="sharpness" id="sharpnessop">12</output>
+    </p><p><label for="backlight_compensation">backlight_compensation</label>
+    <input type="range" min="0" max="2" value="1" id="backlight_compensation" step="1" oninput="updateInt('#backlight_compensationop', 'backlight_compensation', value)">
+    <output for="backlight_compensation" id="backlight_compensationop">1</output>
+    </p><p><label for="exposure_auto">exposure_auto</label>
+    <input id="exposure_auto1" type="radio" name="exposure_auto" value="Manual Mode" onclick="update('exposure_auto', 1)"><label for="exposure_auto1">Manual Mode</label>
+    <input id="exposure_auto3" type="radio" name="exposure_auto" value="Aperture Priority Mode" onclick="update('exposure_auto', 3)" checked=""><label for="exposure_auto3">Aperture Priority Mode</label>
+    </p><p><label for="exposure_absolute">exposure_absolute</label>
+    <input type="range" min="0" max="100" value="3" id="exposure_absolute" step="1" oninput="updateInt('#exposure_absoluteop', 'exposure_absolute', value)">
+    <output for="exposure_absolute" id="exposure_absoluteop">3</output>
+    </p><p><label for="exposure_auto_priority">exposure_auto_priority</label>
+    <input id="exposure_auto_priority" type="checkbox" onclick="update('exposure_auto_priority', this.checked ? 1 : 0)" checked="">
+    </p><p>USB device path: /dev/video0
+    </p><p>Alternate device path: /dev/v4l/by-id/usb-HD_USB_Camera_HD_USB_Camera-video-index0
+    </p><p>Alternate device path: /dev/v4l/by-path/platform-ci_hdrc.0-usb-0:1.2:1.0-video-index0
+    </p><p>Supported Video Modes:</p>
+    <table cols="4" style="border: 1px solid black">
+    <tbody><tr><th>Pixel Format</th><th>Width</th><th>Height</th><th>FPS</th></tr><tr><td>MJPEG</td><td>1920</td><td>1080</td><td>30</td></tr><tr><td>MJPEG</td><td>1280</td><td>720</td><td>60</td></tr><tr><td>MJPEG</td><td>1024</td><td>768</td><td>30</td></tr><tr><td>MJPEG</td><td>640</td><td>480</td><td>120</td></tr><tr><td>MJPEG</td><td>800</td><td>600</td><td>60</td></tr><tr><td>MJPEG</td><td>1280</td><td>1024</td><td>30</td></tr><tr><td>MJPEG</td><td>320</td><td>240</td><td>120</td></tr><tr><td>YUYV</td><td>1920</td><td>1080</td><td>6</td></tr><tr><td>YUYV</td><td>1280</td><td>720</td><td>9</td></tr><tr><td>YUYV</td><td>1024</td><td>768</td><td>6</td></tr><tr><td>YUYV</td><td>640</td><td>480</td><td>30</td></tr><tr><td>YUYV</td><td>800</td><td>600</td><td>20</td></tr><tr><td>YUYV</td><td>1280</td><td>1024</td><td>6</td></tr><tr><td>YUYV</td><td>320</td><td>240</td><td>30</td></tr></tbody></table>
+    </div>
+    </body></html>

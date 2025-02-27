@@ -1,0 +1,13 @@
+{
+    "name": "Camera Thingymajiggy",
+    "description": "Injects js into camera site to make it prettier and adds fullscreen btn",
+    "version": "69.420",
+    "manifest_version": 3,
+    "permissions": ["activeTab", "scripting"],
+    "background": {
+        "service_worker": "background.js"
+    },
+    "host_permissions": [
+        "<all_urls>"
+    ]
+}
